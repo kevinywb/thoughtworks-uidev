@@ -44,8 +44,6 @@ class List extends Component {
                 });
                 if (i < 0) {
                     item.opts.push(opt);
-                } else {
-                    alert(`${opt} is already exist.`)
                 }
             }
             return item;

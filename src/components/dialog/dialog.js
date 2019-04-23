@@ -9,8 +9,10 @@ class Dialog extends Component {
         this.state = {
             to: null,
             show: false,
+            autoselect: false,
             title: 'Title',
             placeholder: 'Placeholder',
+            input: '',
             data: [{
                 text: 'Item-1',
                 selected: false,
@@ -35,7 +37,7 @@ class Dialog extends Component {
 
     showTo(element) {
         this.setState({
-            // to: element,
+            to: element,
             show: true
         });
     }
@@ -64,14 +66,16 @@ class Dialog extends Component {
     }
 
     onChange(e) {
-        const data = this.state.data;
+        const val = e.value || e.getAttr('val'),
+            data = this.state.data;
         data.forEach(item => {
-            if (item.text === e.value) {
+            if (val.indexOf(item.text) >= 0) {
                 item.selected = true;
             }
         })
         this.setState({
-            data: data
+            data: data,
+            autoselect: false
         });
     }
 
@@ -90,11 +94,10 @@ class Dialog extends Component {
         }
     }
 
-    onInput(e) {
-        const data = this.state.data.find(item => {
-            return item.text === e.value;
+    onFocus(e) {
+        this.setState({
+            autoselect: true
         })
-        if (!data) e.element.value = '';
     }
 
     render() {
@@ -104,27 +107,32 @@ class Dialog extends Component {
             if (item.selected) {
                 inputs.push(item.text);
             } else {
-                datalist.push(`<option value="${item.text}" />`);
+                datalist.push(`<li val="${item.text}" onclick="onChange">${item.text}</li>`);
             }
         });
-
+        this.state.input = inputs.join(',');
         const content = `
             <div class="${styles.header}">
                 <span>${this.state.title}</span><a onclick="onClose"><i class="icon-close"></i></a>
             </div>
             <div class="${styles.content}">
-                <input placeholder="${this.state.placeholder}" value="${inputs.join(',')}" />
-                <input autofocus onchange="onChange" onkeyup="onKeyup" oninput="onInput" class="${styles.select}" list="${styles.select}" />
-                <datalist id="${styles.select}">   
-                    ${datalist.join('')}
-                </datalist>
+                <span class="${styles.select}">
+                    <input readonly onchange="onChange" 
+                        onfocus="onFocus" 
+                        placeholder="${this.state.placeholder}" 
+                        value="${this.state.input}"
+                    />
+                    <ul ${this.state.autoselect?'':'hidden'}>
+                        ${datalist.join('')}
+                    </ul>
+                </span>
             </div>
             <div class="${styles.footer}">
                 <a class="btn bg-primary" onclick="onAdd">Add Resources</a>
                 <a class="btn bg-dark" onclick="onCancel">Cancel</a>
             </div>`;
         return `
-            <div  ${this.state.show?'':'hidden'}>
+            <div ${this.state.show?'':'hidden'}>
                 <div class="${this.state.to?`${styles.dialogto}`:`${styles.dialog}`}" 
                     ${this.state.to?`style="top:${this.state.to.offsetTop+60}px;left:${this.state.to.offsetLeft-20}px;"`:''}    
                 >

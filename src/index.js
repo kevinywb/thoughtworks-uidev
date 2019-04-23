@@ -9,10 +9,7 @@ import logger from './middware/logger';
 
 const app = App.getApp();
 
-app.config({
-    providerPath: './layout/layout',
-    apiBaseUrl: 'http://localhost/api',
-});
+app.config({});
 
 app.middlewares([logger]);
 

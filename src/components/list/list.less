@@ -1,0 +1,190 @@
+@import '../default.less';
+
+.item {
+    margin-top: 20px;
+    padding: 20px;
+    background-color: @bg-color-component;
+
+    span {
+        margin-bottom: 20px;
+    }
+
+    i {
+        font-size: @font-size + 4;
+        color: @gray;
+        vertical-align: middle;
+    }
+
+    .logo {
+        display: none;
+        float: left;
+        margin-right: 20px;
+        width: 80px;
+        height: 80px;
+    }
+
+    .title {
+        flex: 1.5;
+        color: @primary;
+    }
+
+    .tag {
+        flex: 0.5;
+
+        span {
+            padding: 5px 10px;
+        }
+    }
+
+    .ip {
+        flex: 0.7;
+    }
+
+    .op {
+        margin: 15px 15px 0 0;
+
+        div:first-child {
+            flex: 0 5%;
+        }
+
+        .icon-plus,
+        .icon-deny {
+            vertical-align: text-top;
+            font-size: @font-size + 4;
+            color: @light;
+        }
+
+        .icon-deny {
+            font-size: @font-size + 2;
+        }
+
+        .add {
+            flex: 1;
+
+            a {
+                padding: 8px 10px;
+                margin-right: 10px;
+                color: @light;
+                background-color: @primary;
+
+                i {
+                    color: @light;
+                }
+
+                &:hover {
+                    background-color: @primary2;
+                }
+            }
+        }
+
+        .opts {
+            flex: 3;
+
+            a {
+                padding: 8px 10px;
+                color: @dark;
+                margin-right: 10px;
+                background-color: @normal2;
+
+                i {
+                    font-size: @font-size + 2;
+                    color: @dark;
+                    vertical-align: text-top;
+                }
+
+                &:hover {
+                    background-color: @normal;
+                }
+            }
+        }
+
+        .deny {
+            flex: 1;
+            text-align: right;
+
+            a {
+                padding: 8px 15px;
+                color: @light;
+                background-color: @primary;
+
+                i {
+                    color: @light;
+                    font-size: @font-size + 2;
+                }
+
+                &:hover {
+                    background-color: @primary2;
+                }
+            }
+        }
+    }
+}
+
+@media (max-width: 767px) {
+    .item {
+        margin: 0 0 15px 0;
+        border-left: 5px solid #fff;
+        padding: 10px 5px;
+
+        span {
+            flex: 0 100%;
+            margin: 10px;
+
+            &.tag {
+                display: none;
+            }
+        }
+
+        &.idle {
+            border-left-color: @success;
+        }
+
+        &.warning {
+            border-left-color: @warning;
+        }
+
+        .logo {
+            display: none;
+        }
+
+        .op {
+            margin-left: 10px;
+
+            .add {
+                a {
+                    display: inline-block;
+                    margin-bottom: 10px;
+                }
+            }
+
+            .opts {
+                a {
+                    display: inline-block;
+                    margin-bottom: 10px;
+                }
+            }
+
+            .deny {
+                align-self: flex-end;
+
+                a {
+                    display: inline-block;
+                    width: 55px;
+                    margin-top: 90px;
+                }
+            }
+        }
+    }
+}
+
+@media (min-width: 768px) {}
+
+@media (min-width: 1024px) {}
+
+@media (min-width: 1200px) {
+    .item {
+        .logo {
+            display: block;
+        }
+    }
+}

@@ -1,7 +1,16 @@
-class Dashboard {
-    render(root) {
-        root.html('<h1>Dashboard</h1>')
+import {
+    Component,
+    Connect
+} from '../../framework/app';
+
+class Dashboard extends Component {
+    constructor(props) {
+        super(props);
+    }
+
+    render() {
+        return (`<h1>Dashboard</h1>`)
     }
 }
 
-export default new Dashboard()
+export default Connect()(Dashboard);

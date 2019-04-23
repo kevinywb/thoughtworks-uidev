@@ -1,0 +1,131 @@
+@import '../default.less';
+
+.dialog,
+.xsdialog {
+    min-height: 50px;
+    background-color: @bg-color-component;
+    border: 1px solid @primary;
+    box-shadow: @box-shadow;
+    position: fixed;
+    z-index: 88;
+}
+
+
+.dialogto {
+    display: none;
+    width: 570px;
+    min-height: 50px;
+    background-color: @bg-color-component;
+    border: 1px solid @primary;
+    box-shadow: @box-shadow;
+    position: absolute;
+    top: 40%;
+    left: 30%;
+    right: 30%;
+    z-index: 88;
+
+    &::before {
+        content: '';
+        position: absolute;
+        top: -20px;
+        left: 25px;
+        border-left: 10px solid transparent;
+        border-right: 10px solid transparent;
+        border-bottom: 20px solid @primary;
+    }
+
+    &::after {
+        content: '';
+        position: absolute;
+        top: -18px;
+        left: 25px;
+        border-left: 10px solid transparent;
+        border-right: 10px solid transparent;
+        border-bottom: 20px solid @light;
+    }
+}
+
+.header {
+    padding: 10px 10px 0 10px;
+
+    a {
+        font-size: 20px;
+        color: @primary;
+        float: right;
+        margin-top: -5px;
+
+        &:hover {
+            color: @primary2;
+        }
+    }
+}
+
+
+.content {
+    padding: 10px;
+
+    input {
+        width: 90%;
+        border: 1px solid @gray;
+        padding: 5px 10px;
+        color: @primary;
+        outline: none;
+    }
+}
+
+
+.footer {
+    padding: 10px 10px 20px 10px;
+
+    a {
+        padding: 8px 10px;
+        margin-right: 10px;
+    }
+}
+
+.select {
+    color: transparent !important;
+    background: transparent !important;
+    float: left;
+    margin-top: -27px;
+    position: relative;
+
+    &:focus {
+        border: 1px solid @primary;
+    }
+}
+
+@media (max-width: 767px) {
+    .xsdialog {
+        top: 40%;
+        left: 0;
+        right: 0;
+        border: 0;
+    }
+}
+
+@media (min-width: 768px) {
+    .xsdialog {
+        top: 40%;
+        left: 20%;
+        right: 20%;
+    }
+}
+
+@media (min-width: 1024px) {
+    .dialogto {
+        display: block;
+    }
+
+    .xsdialog {
+        display: none;
+    }
+}
+
+@media (min-width: 1200px) {
+    .dialog {
+        top: 40%;
+        left: 30%;
+        right: 30%;
+    }
+}

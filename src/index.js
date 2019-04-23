@@ -1,12 +1,19 @@
 /**
  * index.js
  */
-import './all.css'
-import './utils/utils'
-import layout from './components/layout'
+import './index.less';
+import {
+    App
+} from './framework/app';
+import logger from './middware/logger';
 
-$.config = {
-    entryView: 'agent'
-};
+const app = App.getApp();
 
-layout.render();
+app.config({
+    providerPath: './layout/layout',
+    apiBaseUrl: 'http://localhost/api',
+});
+
+app.middlewares([logger]);
+
+app.start('#root');

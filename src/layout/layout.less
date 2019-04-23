@@ -1,0 +1,158 @@
+@import '../components/default.less';
+
+.header {
+    height: 60px;
+    background-color: @bg-color-component;
+    box-shadow: @box-shadow;
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 55;
+}
+
+.logo {
+    width: 80px;
+    height: 40px;
+    margin: 15px auto;
+    background-image: url('../../assets/logo/logo.svg');
+    background-size: 80% 80%;
+    background-repeat: no-repeat;
+}
+
+.avatar {
+    width: 40px;
+    height: 40px;
+    margin: 10px 10px 0 0;
+    float: right;
+    background-image: url(../../assets/logo/hmbb.png);
+    background-size: 100% 100%;
+}
+
+.opts {
+    margin: 25px 50px 0 0;
+    float: right;
+
+    ul {
+        position: absolute;
+        top: 50px;
+        right: 30px;
+        background: @bg-color-component;
+        box-shadow: @box-shadow;
+        padding: 10px 0;
+        z-index: 88;
+
+        li {
+            padding: 10px 20px;
+
+            &:hover {
+                background: @light2;
+            }
+
+            i {
+                width: 20px;
+                display: inline-block;
+            }
+        }
+    }
+}
+
+
+.content {
+    padding: 0;
+    margin: 0 auto;
+    display: flex;
+}
+
+.nav {
+    width: 220px;
+    background-color: @font-color;
+    position: fixed;
+    top: 65px;
+    bottom: 30px;
+    flex-grow: 1;
+    z-index: 66;
+
+    &.collapsed {
+        display: none;
+    }
+}
+
+.btn {
+    font-size: 20px;
+    margin: 20px 0 0 50px;
+}
+
+.view {
+    margin: 90px 20px 60px 250px;
+    flex-grow: 1;
+    align-self: center;
+}
+
+.footer {
+    height: 30px;
+    line-height: 30px;
+    text-align: center;
+    background-color: @bg-color-component;
+    box-shadow: @box-shadow2;
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    z-index: 55;
+}
+
+.copyright {
+    font-size: small;
+}
+
+@media (max-width: 767px) {
+    .nav {
+        top: 0;
+        bottom: 0;
+        padding-top: 50px;
+    }
+
+    .btn {
+        margin: 20px 0 0 20px;
+    }
+
+    .opts {
+        margin: 25px 20px 0 0;
+    }
+
+    .view {
+        margin: 80px 5px 60px 5px;
+    }
+}
+
+@media (min-width: 768px) {
+    .nav {
+        top: 0;
+        bottom: 0;
+        padding-top: 50px;
+    }
+
+    .view {
+        margin-left: 20px;
+    }
+}
+
+@media (min-width: 1024px) {
+    .btn {
+        i {
+            display: none;
+        }
+    }
+
+    .nav {
+        display: block !important;
+        top: 60px;
+        bottom: 30px;
+        padding-top: 0;
+    }
+
+    .view {
+        margin-left: 250px;
+    }
+}

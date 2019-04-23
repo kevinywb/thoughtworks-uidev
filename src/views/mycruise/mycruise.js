@@ -1,7 +1,16 @@
-class MyCruise {
-    render(root) {
-        root.html('<h1>MyCruise</h1>')
+import {
+    Component,
+    Connect
+} from '../../framework/app';
+
+class MyCruise extends Component {
+    constructor(props) {
+        super(props);
+    }
+
+    render() {
+        return (`<h1>My Cruise</h1>`)
     }
 }
 
-export default new MyCruise()
+export default Connect()(MyCruise);

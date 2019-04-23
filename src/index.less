@@ -1,4 +1,77 @@
-* {
+@import './components/default.less';
+
+:global {
+    body {
+        color: @font-color;
+        font-size: @font-size;
+        font-family: @font-family;
+        background-color: @bg-color-body;
+        padding: 0;
+        margin: 0 auto;
+    }
+
+    ul {
+        list-style: none;
+        margin: 0;
+        padding: 0;
+    }
+
+    li {
+        cursor: default;
+    }
+
+    a {
+        cursor: default;
+    }
+
+    .row {
+        display: flex;
+        flex-flow: wrap;
+    }
+
+    .col {
+        flex: 1;
+    }
+
+    .bg-primary {
+        color: @light;
+        background-color: @primary;
+    }
+
+    .bg-dark {
+        color: @light;
+        background-color: @dark;
+    }
+
+    .bg-normal {
+        color: @dark;
+        background-color: @normal2;
+    }
+
+    .bg-success {
+        color: @light;
+        background-color: @success;
+    }
+
+    .bg-warning {
+        color: @light;
+        background-color: @warning;
+    }
+
+    @media (max-width: 767px) {}
+
+    @media (min-width: 768px) {}
+
+    @media (min-width: 1024px) {}
+
+    @media (min-width: 1200px) {
+        body {
+            max-width: 1200px;
+        }
+    }
+}
+
+/* * {
     margin: 0;
     padding: 0;
 }
@@ -520,31 +593,6 @@ a {
     background-color: #f3f3f3;
 }
 
-.bg-primary {
-    color: #fff;
-    background-color: #00B4CF;
-}
-
-.bg-dark {
-    color: #fff;
-    background-color: #2D4054;
-}
-
-.bg-normal {
-    color: #2D4054;
-    background-color: #E1E4E6;
-}
-
-.bg-success {
-    color: #fff;
-    background-color: #7FBC39;
-}
-
-.bg-warning {
-    color: #fff;
-    background-color: #FF9A2A;
-}
-
 .row {
     display: -webkit-flex;
     display: flex;
@@ -560,118 +608,4 @@ a {
     -webkit-box-flex: 1;
     -moz-box-flex: 1;
 }
-
-@media (min-width: 768px) {
-    .content {
-        max-width: 768px;
-    }
-
-    .view {
-        margin: 90px 0 60px 0;
-    }
-
-    .nav-btn-xs {
-        display: grid;
-    }
-
-    .left,
-    .tabs-xs,
-    .list-xs {
-        display: none;
-    }
-
-    .dialog-header a {
-        margin-top: -30px;
-    }
-}
-
-@media (min-width: 1024px) {
-    .content {
-        max-width: 1024px;
-    }
-
-    .left {
-        display: grid;
-    }
-
-    .view {
-        margin: 90px 0 60px 250px;
-    }
-
-    .nav-btn-xs,
-    .tabs-xs,
-    .list-xs {
-        display: none;
-    }
-
-    .dialog-header a {
-        margin-top: -15px;
-    }
-}
-
-@media (min-width: 1200px) {
-    .content {
-        max-width: 1200px;
-    }
-
-    .left {
-        display: grid;
-    }
-
-    .view {
-        margin: 90px 0 60px 250px;
-    }
-
-    .nav-btn-xs,
-    .tabs-xs,
-    .list-xs {
-        display: none;
-    }
-
-    .dialog-header a {
-        margin-top: -15px;
-    }
-}
-
-@media (max-width: 768px) {
-    .left {
-        display: none;
-    }
-
-    .view {
-        margin: 70px 0 30px 0;
-    }
-
-    .content {
-        max-width: 768px;
-    }
-
-    .card {
-        margin: 5px !important;
-    }
-
-    .tabs,
-    .list {
-        display: none !important;
-    }
-
-    .nav-btn-xs,
-    .tabs-xs,
-    .list-xs {
-        display: grid;
-    }
-
-    .dialog-header a {
-        margin-top: -30px;
-    }
-
-    .row {
-        display: flex;
-        flex-flow: wrap;
-        align-items: flex-start;
-    }
-
-    .col {
-        flex: 1 33.33%;
-    }
-}
+ */

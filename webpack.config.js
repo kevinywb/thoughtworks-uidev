@@ -1,9 +1,11 @@
 /**
  * webpack config
  */
+const path = require('path');
 const htmlPlugin = require('html-webpack-plugin');
 const copyPlugin = require('copy-webpack-plugin');
 const cleanPlugin = require('clean-webpack-plugin');
+const apiMocker = require('mocker-api')
 
 module.exports = {
     mode: 'development',
@@ -19,6 +21,17 @@ module.exports = {
             {
                 test: /\.css$/,
                 use: ['style-loader', 'css-loader']
+            },
+            //less loader
+            {
+                test: /\.less$/,
+                use: ['style-loader', {
+                    loader: 'css-loader',
+                    options: {
+                        modules: true,
+                        localIdentName: '[name]-[local]-[hash:base64:6]'
+                    }
+                }, 'less-loader']
             },
             //img loader
             {
@@ -45,5 +58,17 @@ module.exports = {
             ignore: [],
             toType: 'dir'
         })
-    ]
+    ],
+    devServer: {
+        before(app) {
+            apiMocker(app, path.resolve(__dirname, './mock/index.js'), {})
+        },
+        port: 80,
+        proxy: {
+            '/api': {
+                target: 'http://localhost:80',
+                secure: false
+            }
+        }
+    }
 }

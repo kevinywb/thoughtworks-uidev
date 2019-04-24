@@ -17,6 +17,12 @@ module.exports = {
     },
     module: {
         rules: [
+            //babel loader
+            {
+                test: /\.js$/,
+                exclude: /(node_modules)/,
+                use: ['babel-loader']
+            },
             //css loader
             {
                 test: /\.css$/,
@@ -46,10 +52,12 @@ module.exports = {
         ]
     },
     plugins: [
-        new cleanPlugin(['dist']),
+        new cleanPlugin({
+            cleanOnceBeforeBuildPatterns: ['dist']
+        }),
         new htmlPlugin({
             chunksSortMode: 'none',
-            template: './src/index.html'
+            template: 'index.html'
         }),
         new copyPlugin([{
             from: 'assets',

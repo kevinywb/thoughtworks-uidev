@@ -17,9 +17,10 @@ const _addEventListener = (element, events) => {
     if (element.attributes) {
         Object.values(element.attributes).forEach(attr => {
             if (!attr.name.startsWith('on') || typeof events[attr.value] !== 'function') return;
+            const key = attr.value;
             element.removeAttribute(attr.name);
             element.addEventListener(attr.name.replace('on', ''), (e) => {
-                events[attr.value]({
+                events[key]({
                     element: e.currentTarget,
                     value: e.currentTarget.value,
                     getAttr: e.currentTarget.getAttribute.bind(e.currentTarget),

@@ -30,22 +30,28 @@ class Dialog extends Component {
     }
 
     show() {
-        this.setState({
-            show: true
-        });
+        if (!this.state.show) {
+            this.setState({
+                show: true
+            });
+        }
     }
 
     showTo(element) {
-        this.setState({
-            to: element,
-            show: true
-        });
+        if (!this.state.show) {
+            this.setState({
+                to: element,
+                show: true
+            });
+        }
     }
 
     hide() {
-        this.setState({
-            show: false
-        });
+        if (this.state.show) {
+            this.setState({
+                show: false
+            });
+        }
     }
 
     onAdd(e) {

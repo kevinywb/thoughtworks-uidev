@@ -13,13 +13,17 @@ const _createElement = (html, events) => {
     return wrap.firstElementChild;
 };
 
+const _removeElement = (element) => {
+    element.remove ? element.remove() : element.removeNode(true);
+}
+
 const _addEventListener = (element, events) => {
     if (element.attributes) {
         Object.values(element.attributes).forEach(attr => {
             if (!attr.name.startsWith('on') || typeof events[attr.value] !== 'function') return;
             const key = attr.value;
             element.removeAttribute(attr.name);
-            element.addEventListener(attr.name.replace('on', ''), (e) => {
+            element[attr.name] = (e) => {
                 events[key]({
                     element: e.currentTarget,
                     value: e.currentTarget.value,
@@ -28,7 +32,7 @@ const _addEventListener = (element, events) => {
                 });
                 e.stopPropagation();
                 e.preventDefault();
-            }, false);
+            }
         });
     }
     if (element.childElementCount > 0) {
@@ -49,8 +53,10 @@ const _find = (element, any) => {
 
 const _mountElement = (element, container, reset) => {
     if (container) {
-        if (reset) {
-            container.innerHTML = '';
+        if (reset && container.childElementCount > 0) {
+            for (let i = container.childNodes.length - 1; i >= 0; i--) {
+                _removeElement(container.childNodes[i]);
+            }
         }
         container.appendChild(element);
     }
@@ -65,7 +71,7 @@ const _shouldComponentUpdate = (prevElement, nextElement) => {
 const _updateElement = (prevElement, nextElement) => {
     const parent = prevElement.parentNode;
     const diff = (prevNode, nextNode) => {
-        prevNode.remove();
+        _removeElement(prevNode);
         parent.appendChild(nextNode);
     }
     diff(prevElement, nextElement);
@@ -91,7 +97,7 @@ class Component {
     }
 
     destroy() {
-        this.element.remove();
+        _removeElement(this.element);
     }
 
     componentWillMount() {
@@ -119,9 +125,9 @@ class Component {
             _updateElement(this.element, newElement);
             _margeChildren(this.children, newElement);
             this.element = newElement;
+            _componentProps = _.clone(this.state);
+            _autofocus(this.element);
         }
-        _componentProps = _.clone(this.state);
-        _autofocus(this.element);
     }
 
     mountElement(container, reset) {

@@ -3,8 +3,6 @@
  */
 const path = require('path');
 const htmlPlugin = require('html-webpack-plugin');
-const copyPlugin = require('copy-webpack-plugin');
-const cleanPlugin = require('clean-webpack-plugin');
 const apiMocker = require('mocker-api')
 
 module.exports = {
@@ -20,7 +18,7 @@ module.exports = {
             //babel loader
             {
                 test: /\.js$/,
-                exclude: /(node_modules)/,
+                include: /src/,
                 use: ['babel-loader']
             },
             //css loader
@@ -52,24 +50,14 @@ module.exports = {
         ]
     },
     plugins: [
-        new cleanPlugin({
-            cleanOnceBeforeBuildPatterns: ['dist']
-        }),
         new htmlPlugin({
             chunksSortMode: 'none',
             template: 'index.html'
-        }),
-        new copyPlugin([{
-            from: 'assets',
-            to: 'assets'
-        }], {
-            ignore: [],
-            toType: 'dir'
         })
     ],
     devServer: {
         before(app) {
-            apiMocker(app, path.resolve(__dirname, './mock/index.js'), {})
+            apiMocker(app, path.resolve(__dirname, '../mock/index.js'), {})
         },
         port: 80,
         proxy: {

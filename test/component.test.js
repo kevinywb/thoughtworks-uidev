@@ -25,10 +25,12 @@ describe('component', () => {
 
     test('mountElement', () => {
         const component = new Component(),
+            component2 = new Component(),
             container = document.createElement('div');
         component.mountElement();
         expect(container.childElementCount).toEqual(0);
         component.mountElement(container);
+        component2.mountElement(container, true);
         expect(container.childElementCount).toEqual(1);
     })
 
@@ -37,6 +39,10 @@ describe('component', () => {
             container = document.createElement('div');
         component.mountElement(container);
         expect(container.childElementCount).toEqual(1);
+        component.destroy();
+        expect(container.childElementCount).toEqual(0);
+        component.element.remove = null;
+        component.element.removeNode = () => {};
         component.destroy();
         expect(container.childElementCount).toEqual(0);
     })

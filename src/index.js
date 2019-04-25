@@ -1,6 +1,7 @@
 /**
  * index.js
  */
+import 'babel-polyfill';
 import './index.less';
 import {
     App

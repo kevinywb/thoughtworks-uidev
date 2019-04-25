@@ -1,9 +1,11 @@
 {
     "presets": [
-        "env"
+        ["env", {
+            "module": false,
+            "useBuiltIns": true
+        }]
     ],
     "plugins": [
-        "syntax-dynamic-import",
         "dynamic-import-node",
         "transform-runtime",
         "transform-object-rest-spread"

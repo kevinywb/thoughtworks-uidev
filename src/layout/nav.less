@@ -33,7 +33,9 @@
 }
 
 .history {
-    margin-top: 50%;
+    position: absolute;
+    bottom: 20px;
+    max-height: 40%;
 
     label {
         color: @gray;
@@ -43,11 +45,12 @@
 
     ul {
         margin: 20px 0 0 20px;
+        list-style: inherit;
     }
 
     li {
         color: @gray2;
-        padding-bottom: 8px;
+        padding: 5px 8px;
         font-size: @font-size - 2;
 
         &:hover {

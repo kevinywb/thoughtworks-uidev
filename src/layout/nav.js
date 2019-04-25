@@ -11,9 +11,6 @@ class Nav extends Component {
         this.state = {
             menus: [],
             histories: [{
-                id: 1,
-                text: 'bjstdmngbgr01/Acceptance_test'
-            }, {
                 id: 2,
                 text: 'bjstdmngbgr02/Acceptance_test'
             }, {
@@ -22,6 +19,30 @@ class Nav extends Component {
             }, {
                 id: 4,
                 text: 'bjstdmngbgr04/Acceptance_test'
+            }, {
+                id: 5,
+                text: 'bjstdmngbgr05/Acceptance_test'
+            }, {
+                id: 6,
+                text: 'bjstdmngbgr06/Acceptance_test'
+            }, {
+                id: 7,
+                text: 'bjstdmngbgr07/Acceptance_test'
+            }, {
+                id: 8,
+                text: 'bjstdmngbgr08/Acceptance_test'
+            }, {
+                id: 9,
+                text: 'bjstdmngbgr09/Acceptance_test'
+            }, {
+                id: 11,
+                text: 'bjstdmngbgr11/Acceptance_test'
+            }, {
+                id: 12,
+                text: 'bjstdmngbgr12/Acceptance_test'
+            }, {
+                id: 13,
+                text: 'bjstdmngbgr13/Acceptance_test'
             }]
         }
     }

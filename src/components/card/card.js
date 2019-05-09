@@ -15,6 +15,7 @@ class Card extends Component {
             icon: '',
             backgroundColor: '#fff',
             animate: false,
+            ...props
         }
     }
 
@@ -22,15 +23,13 @@ class Card extends Component {
         if (this.state.animate) {
             let startIndex = 0;
             const i = this.find('i');
-            if (i) {
-                setInterval(() => {
-                    if (startIndex == 360) {
-                        startIndex = 0;
-                    }
-                    i.style['transform'] = "rotate(" + (startIndex) + "deg)";
-                    startIndex += 5;
-                }, 50);
-            }
+            setInterval(() => {
+                if (startIndex >= 360) {
+                    startIndex = 0;
+                }
+                i.style['transform'] = "rotate(" + (startIndex) + "deg)";
+                startIndex += 5;
+            }, 50);
         }
     }
 

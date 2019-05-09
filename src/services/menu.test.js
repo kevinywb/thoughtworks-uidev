@@ -1,11 +1,11 @@
 import {
     getMenuList
-} from '../src/services/menu';
+} from './menu';
 
 describe('service', () => {
-    test('getMenuList', async (done) => {
+    it('get menu list correctly', async (done) => {
         const data = await getMenuList();
-        expect(data.success).toBe(true);
+        expect(data).toBeDefined();
         done();
     })
 })

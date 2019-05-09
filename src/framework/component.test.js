@@ -1,13 +1,13 @@
-import Component from '../src/framework/component';
+import Component from './component';
 
 describe('component', () => {
-    test('getComponent', () => {
+    it('get a component correctly', () => {
         const a = Component.getComponent(),
             b = Component.getComponent();
         expect(a).toEqual(b);
     });
 
-    test('find', () => {
+    it('find a element correctly', () => {
         class CustomComponent extends Component {
             render() {
                 return '<div><a></a></div>'
@@ -19,11 +19,11 @@ describe('component', () => {
         expect(element).toBeDefined();
     });
 
-    test('render', () => {
+    it('renders correctly', () => {
         expect(new Component().render()).toBeDefined();
     });
 
-    test('mountElement', () => {
+    it('mount a element correctly', () => {
         const component = new Component(),
             component2 = new Component(),
             container = document.createElement('div');
@@ -34,7 +34,7 @@ describe('component', () => {
         expect(container.childElementCount).toEqual(1);
     })
 
-    test('destroy', () => {
+    it('destroy correctly', () => {
         const component = new Component(),
             container = document.createElement('div');
         component.mountElement(container);
@@ -47,7 +47,7 @@ describe('component', () => {
         expect(container.childElementCount).toEqual(0);
     })
 
-    test('setState', () => {
+    it('set component state correctly', () => {
         const component = new Component();
         component.setState({
             a: 1

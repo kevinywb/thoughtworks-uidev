@@ -3,30 +3,26 @@ import {
     Component,
     Connect,
     Create,
-    Router,
-    Request
-} from '../src/framework/app';
-
-const app = App.getApp();
+    Router
+} from './app';
 
 describe('app', () => {
-    test('getApp', () => {
+
+    const app = App.getApp();
+
+    it('singleton mode correctly', () => {
         const app2 = App.getApp();
         expect(app2).toEqual(app);
-    })
-
-    test('config', () => {
-        const config = app.config({
-            historyTracker: true,
-            providerPath: './components/layout/layout',
-            apiBaseUrl: 'http://localhost/api',
-        });
-        expect(config.historyTracker === true).toBe(true);
-        expect(config.providerPath === './components/layout/layout').toBe(true);
-        expect(config.apiBaseUrl === 'http://localhost/api').toBe(true);
     });
 
-    test('middlewares', () => {
+    it('able to be configured', () => {
+        const config = app.config({
+            a: 1
+        });
+        expect(config.a === 1).toBe(true);
+    });
+
+    it('middleware correctly', () => {
         const a = () => next => action => {
                 let val = next(action);
                 return val;
@@ -35,7 +31,7 @@ describe('app', () => {
         expect(middlewares).toContain(a);
     });
 
-    test('router', (done) => {
+    it('router correctly', (done) => {
         app.config({
             historyTracker: false
         });
@@ -45,7 +41,7 @@ describe('app', () => {
         });
     });
 
-    test('router with history', (done) => {
+    it('router with history correctly', (done) => {
         app.config({
             historyTracker: true
         });
@@ -55,16 +51,9 @@ describe('app', () => {
         });
     });
 
-    test('request', (done) => {
-        Request('menus').then(res => {
-            expect(res.success).toBe(true);
-            done();
-        });
-    })
-
-    test('start', (done) => {
+    it('able to be started', (done) => {
         app.config({
-            providerPath: '../views/mycruise/mycruise'
+            providerPath: '../layout/layout'
         })
         app.start('body').then(res => {
             expect(res).toBeDefined();
@@ -72,7 +61,7 @@ describe('app', () => {
         });
     });
 
-    test('connect', () => {
+    it('connect correctly', () => {
         const model = {
             namespace: 'test',
             state: {
@@ -120,9 +109,7 @@ describe('app', () => {
                     btnName: 'Hello'
                 };
             }
-            componentWillMount() {
-                console.log('will mount');
-            }
+            componentWillMount() {}
             componentDidMount() {
                 this.dispatch({
                     type: 'test/getBtnName',
@@ -139,7 +126,6 @@ describe('app', () => {
             }
             onClick(e) {
                 e.getAttr('name');
-                console.log(e.val);
             }
             render() {
                 return (`
@@ -181,7 +167,7 @@ describe('app', () => {
         expect(component).toBeDefined();
     });
 
-    test('create', () => {
+    it('able to be created', () => {
         class StatelessComponent extends Component {
             constructor(props) {
                 super(props);

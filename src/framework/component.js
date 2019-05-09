@@ -72,7 +72,9 @@ const _updateElement = (prevElement, nextElement) => {
     const parent = prevElement.parentNode;
     const diff = (prevNode, nextNode) => {
         _removeElement(prevNode);
-        parent.appendChild(nextNode);
+        if (parent) {
+            parent.appendChild(nextNode);
+        }
     }
     diff(prevElement, nextElement);
 }
@@ -113,21 +115,22 @@ class Component {
     }
 
     setState(newState) {
-        this.state = {
+        const state = {
             ...this.state,
             ...newState
         };
-        if (_.isEquals(_componentProps, this.state)) {
+        if (_.isEquals(_componentProps, state)) {
             return true;
         }
+        this.state = state;
         const newElement = _createElement(this.render(), this);
         if (_shouldComponentUpdate(this.element, newElement)) {
             _updateElement(this.element, newElement);
             _margeChildren(this.children, newElement);
+            _autofocus(newElement);
             this.element = newElement;
-            _componentProps = _.clone(this.state);
-            _autofocus(this.element);
         }
+        _componentProps = _.clone(this.state);
     }
 
     mountElement(container, reset) {

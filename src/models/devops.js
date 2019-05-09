@@ -1,11 +1,11 @@
 import {
-    getMenuList
-} from '../services/menu';
+    getDevOpsList
+} from '../services/devops';
 
 export default {
-    namespace: 'menu',
+    namespace: 'devops',
     state: {
-        menus: []
+        devops: []
     },
     reducers: {
         getAll(state, {
@@ -14,14 +14,14 @@ export default {
             return {
                 ...state,
                 ...{
-                    menus: payload
+                    devops: payload
                 },
             }
         }
     },
     effects: {
         getAll: (payload) => {
-            const data = getMenuList();
+            const data = getDevOpsList();
             return data;
         }
     }

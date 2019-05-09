@@ -14,6 +14,10 @@ const isObj = (obj) => {
     return typeof obj === 'object';
 }
 
+const isEmpty = (obj) => {
+    return obj === null || JSON.stringify(obj) === '{}';
+};
+
 const isHasChild = (container) => {
     return !!container.firstChild;
 }
@@ -53,6 +57,7 @@ export default {
     isString,
     isFunc,
     isObj,
+    isEmpty,
     isHasChild,
     isEquals,
     isPromise,

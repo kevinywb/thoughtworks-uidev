@@ -17,7 +17,8 @@ class List extends Component {
                 path: '/var/lib/cruise-agent',
                 opts: ['Firefox', 'Safari', 'Ubuntu', 'Chrome'],
                 deny: false
-            }]
+            }],
+            ...props
         }
     }
 
@@ -60,7 +61,7 @@ class List extends Component {
 
     onDeleteClick(e) {
         selectedItemId = e.getAttr('val');
-        if (this.onDeleted) this.onDeleted(e.getAttr('val'), e.getAttr('opt'));
+        if (this.onDeleted) this.onDeleted(e.getAttr('opt'));
     }
 
     onDenyClick(e) {
@@ -71,12 +72,10 @@ class List extends Component {
         const contents = [];
         let opts = [];
         this.state.items.forEach(item => {
-            if (item.opts) {
-                opts = [];
-                item.opts.forEach(opt => {
-                    opts.push(`<a>${opt} <i val="${item.id}" opt="${opt}" onclick="onDeleteClick" class="icon-trash"></i></a>`);
-                })
-            }
+            opts = [];
+            item.opts.forEach(opt => {
+                opts.push(`<a>${opt} <i val="${item.id}" opt="${opt}" onclick="onDeleteClick" class="icon-trash"></i></a>`);
+            });
             contents.push(`
                 <div class="${styles.item} ${item.tag === 'idle' ? styles.idle : styles.warning}">
                     <img class="${styles.logo}" src="${item.logo}" />

@@ -10,9 +10,9 @@ class Layout extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            ...props,
             collapsed: true,
-            dropdown: false
+            dropdown: false,
+            ...props
         }
     }
 

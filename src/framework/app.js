@@ -1,12 +1,10 @@
 import _ from './core';
 import _path from 'path';
-import Request from './request';
 import Component from './component';
 
 let _config = {
         historyTracker: false,
-        providerPath: './layout/layout',
-        apiBaseUrl: '/api'
+        providerPath: './layout/layout'
     },
     _middlewares = [],
     _provider = null;
@@ -58,14 +56,9 @@ const _createStore = (reducer, preloadedStore, enhancer) => {
 
 const _createPromiseMiddleware = () => {
     const call = (promise, next, action) => {
-        promise.then(res => {
-            action.payload && action.payload.callback && action.payload.callback(res);
-            return next({
-                ...action,
-                ...{
-                    payload: res
-                }
-            });
+        promise.then(data => {
+            action.payload = data;
+            return next(action);
         });
     }
     return (store) => next => action => {
@@ -75,7 +68,7 @@ const _createPromiseMiddleware = () => {
             // return _.isPromise(effects[key]) ?
             //     call(effects[key](action.payload), next, action) :
             return call(new Promise((resolve, reject) => {
-                return resolve(effects[key](action.payload));
+                resolve(effects[key](action.payload));
             }), next, action);
         }
         return next(action);
@@ -106,6 +99,7 @@ const _combineReducers = (reducers) => {
         Object.keys(reducers).forEach(key => {
             if (action.type === key) {
                 const newState = reducers[key](state[key], action);
+                if (_.isEmpty(newState)) return;
                 state = {
                     ...state,
                     ...newState
@@ -173,14 +167,6 @@ const _router = (component, url) => {
     });
 }
 
-const _request = (url, data, method = 'GET') => {
-    return Request({
-        url: `${_config.apiBaseUrl}/${url}`,
-        data: data,
-        method: method
-    });
-}
-
 const _register = (w) => {
 
     w.onhashchange = () => {}
@@ -238,6 +224,5 @@ export {
     _provider as Provider,
     _connect as Connect,
     _create as Create,
-    _router as Router,
-    _request as Request,
+    _router as Router
 };

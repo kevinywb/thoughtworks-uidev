@@ -19,39 +19,34 @@ class Dialog extends Component {
             }, {
                 text: 'Item-2',
                 selected: true
-            }]
+            }],
+            ...props
         };
     }
 
-    clear() {
+    reset() {
         this.state.data.forEach(item => {
             item.selected = false;
         });
     }
 
     show() {
-        if (!this.state.show) {
-            this.setState({
-                show: true
-            });
-        }
+        this.setState({
+            show: true
+        });
     }
 
     showTo(element) {
-        if (!this.state.show) {
-            this.setState({
-                to: element,
-                show: true
-            });
-        }
+        this.setState({
+            to: element,
+            show: true
+        });
     }
 
     hide() {
-        if (this.state.show) {
-            this.setState({
-                show: false
-            });
-        }
+        this.setState({
+            show: false
+        });
     }
 
     onAdd(e) {
@@ -63,7 +58,7 @@ class Dialog extends Component {
         }
     }
 
-    onCancel(e) {
+    onCancel() {
         this.hide();
     }
 
@@ -83,21 +78,6 @@ class Dialog extends Component {
             data: data,
             autoselect: false
         });
-    }
-
-    onKeyup(e) {
-        if (e.keyCode === 8) {
-            const data = this.state.data;
-            for (let i = data.length - 1; i >= 0; i--) {
-                if (data[i].selected) {
-                    data[i].selected = false;
-                    break;
-                }
-            }
-            this.setState({
-                data: data
-            });
-        }
     }
 
     onFocus(e) {

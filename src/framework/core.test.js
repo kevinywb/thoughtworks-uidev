@@ -1,32 +1,31 @@
-import core from '../src/framework/core';
+import core from './core';
 
 describe('core', () => {
 
-    test('onError', () => {
+    it('trigger error correctly', () => {
         expect(() => {
             core.onError('throw exception')
         }).toThrow('throw exception');
     })
 
-    test('isString', () => {
+    it('whether it is a string', () => {
         expect(core.isString('hello')).toBe(true);
         expect(core.isString(123)).toBe(false);
         expect(core.isString({})).toBe(false);
-        ``
         expect(core.isString()).toBe(false);
     });
 
-    test('isFunc', () => {
+    it('whether it is a function', () => {
         expect(core.isFunc(() => {})).toBe(true);
         expect(core.isFunc({})).toBe(false);
     })
 
-    test('isObj', () => {
+    it('whether it is a object', () => {
         expect(core.isObj({})).toBe(true);
         expect(core.isObj(123)).toBe(false);
     })
 
-    test('isHasChild', () => {
+    it('whether it has children', () => {
         const parent = document.createElement('div'),
             child = document.createElement('div');
         expect(core.isHasChild(parent)).toBe(false);
@@ -34,7 +33,7 @@ describe('core', () => {
         expect(core.isHasChild(parent)).toBe(true);
     })
 
-    test('isEquals', () => {
+    it('whether two objects are equal', () => {
         expect(core.isEquals({
             a: 1
         }, {
@@ -48,12 +47,12 @@ describe('core', () => {
         expect(core.isEquals(1, 2)).toBe(false);
     })
 
-    test('Whether it is a promise object', () => {
+    it('Whether it is a promise object', () => {
         expect(core.isPromise(new Promise(() => {}))).toBe(true);
         expect(core.isPromise({})).toBe(false);
     })
 
-    test('compose', () => {
+    it('compose correctly', () => {
         const f = a => b => {
                 return a(b);
             },
@@ -65,7 +64,7 @@ describe('core', () => {
         expect(core.compose(...funcs)(f)).toBeDefined();
     })
 
-    test('clone', () => {
+    it('clone correctly', () => {
         const obj = {
                 a: 1
             },
@@ -74,7 +73,7 @@ describe('core', () => {
         expect(obj.a).toEqual(1);
     })
 
-    test('readonly', () => {
+    it('cannot edit', () => {
         const obj = core.readonly({
             a: 1
         });

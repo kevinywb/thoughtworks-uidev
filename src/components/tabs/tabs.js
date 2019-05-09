@@ -36,7 +36,8 @@ class Tabs extends Component {
                     name: 'card',
                     icon: 'icon-th-card'
                 }
-            ]
+            ],
+            ...props
         }
     }
 

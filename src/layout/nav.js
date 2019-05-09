@@ -9,7 +9,15 @@ class Nav extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            menus: [],
+            menus: [{
+                name: 'menu1',
+                text: 'Menu 1',
+                icon: ''
+            }, {
+                name: 'menu2',
+                text: 'Menu 2',
+                icon: ''
+            }],
             histories: [{
                 id: 2,
                 text: 'bjstdmngbgr02/Acceptance_test'
@@ -49,16 +57,7 @@ class Nav extends Component {
 
     componentDidMount() {
         this.dispatch({
-            type: 'menu/getAll',
-            payload: {
-                callback: (res) => {
-                    if (res.success && res.data) {
-                        res.data.find(item => {
-                            item.active && this.onActived && this.onActived(item.name);
-                        });
-                    }
-                }
-            }
+            type: 'menu/getAll'
         });
     }
 
@@ -71,7 +70,6 @@ class Nav extends Component {
         this.setState({
             menus: menus
         });
-        if (this.onActived) this.onActived(name);
     }
 
     onClose() {
@@ -87,6 +85,7 @@ class Nav extends Component {
                     ${menu.active ? `class="${styles.active}"` : ''} onclick="onClick">
                     <i class="${menu.icon}"> ${menu.text}</i>
                 </li>`);
+            if (menu.active && this.onActived) this.onActived(menu.name);
         });
         this.state.histories.forEach(history => {
             histories.push(`<li><a>${history.text}</a></li>`);

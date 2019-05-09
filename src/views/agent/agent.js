@@ -8,95 +8,32 @@ import Card from '../../components/card/card';
 import Tabs from '../../components/tabs/tabs';
 import List from '../../components/list/list';
 import Dialog from '../../components/dialog/dialog';
+import devops from '../../models/devops';
 
+//card create
 const cardOne = Create({
-    title: 'Building',
-    value: 3,
-    icon: 'icon-cog',
-    backgroundColor: '#FF9A2A',
-    animate: true,
-})(Card);
+        title: 'Building',
+        value: 3,
+        icon: 'icon-cog',
+        backgroundColor: '#FF9A2A',
+        animate: true,
+    })(Card),
+    cardTwo = Create({
+        title: 'Idle',
+        value: 5,
+        icon: 'icon-coffee',
+        backgroundColor: '#7FBC39'
+    })(Card),
+    cardThree = Create({
+        type: 'table',
+        titles: ['ALL', 'PHYSICAL', 'VIRTUAL'],
+        values: [8, 4, 4]
+    })(Card);
 
-const cardTwo = Create({
-    title: 'Idle',
-    value: 5,
-    icon: 'icon-coffee',
-    backgroundColor: '#7FBC39'
-})(Card);
-
-const cardThree = Create({
-    type: 'table',
-    titles: ['ALL', 'PHYSICAL', 'VIRTUAL'],
-    values: [8, 4, 4]
-})(Card);
-
+//tab create
 const tabs = Create()(Tabs);
-tabs.onSearched = (value) => {
-    value ? alert(`Search result is ${value}`) : alert(`Search result is empty`)
-}
-tabs.onTabActived = (name) => {
-    console.log(name);
-}
-tabs.onTagActived = (name) => {
-    console.log(name);
-}
 
-const todos = [{
-    id: 1,
-    logo: './assets/osicons/windows.png',
-    title: 'bjstdmngbgr01.thoughworks.com',
-    tag: 'idle',
-    ip: '192.168.1.102',
-    path: '/var/lib/cruise-agent',
-    opts: ['Firefox', 'Safari', 'Ubuntu', 'Chrome'],
-    deny: false
-}, {
-    id: 2,
-    logo: './assets/osicons/windows.png',
-    title: 'bjstdmngbgr08.thoughworks.com',
-    tag: 'building',
-    ip: '192.168.1.243',
-    path: '/var/lib/cruise-agent',
-    opts: ['Firefox', 'Safari', 'Ubuntu', 'Chrome'],
-    deny: true
-}, {
-    id: 3,
-    logo: './assets/osicons/ubuntu.png',
-    title: 'bjstdmngbgr10.thoughworks.com',
-    tag: 'building',
-    ip: '192.168.1.80',
-    path: '/var/lib/cruise-agent',
-    opts: ['Firefox', 'Safari'],
-    deny: true
-}, {
-    id: 4,
-    logo: './assets/osicons/debin.png',
-    title: 'bjstdmngbgr11.thoughworks.com',
-    tag: 'building',
-    ip: '192.168.1.117',
-    path: '/var/lib/cruise-agent',
-    opts: ['Firefox', 'Safari', 'Ubuntu', 'Chrome'],
-    deny: true
-}, {
-    id: 5,
-    logo: './assets/osicons/suse.png',
-    title: 'bjstdmngbgr15.thoughworks.com',
-    tag: 'idle',
-    ip: '192.168.1.110',
-    path: '/var/lib/cruise-agent',
-    opts: [],
-    deny: false
-}, {
-    id: 6,
-    logo: './assets/osicons/cent_os.png',
-    title: 'bjstdmngbgr01.thoughworks.com',
-    tag: 'idle',
-    ip: '192.168.1.102',
-    path: '/var/lib/cruise-agent',
-    opts: ['Firefox', 'Safari', 'Ubuntu', 'Chrome'],
-    deny: false
-}];
-
+//default opts
 const opts = [{
     text: 'Firefox'
 }, {
@@ -107,35 +44,61 @@ const opts = [{
     text: 'Chrome'
 }];
 
-const list = Create({
-    items: todos
-})(List);
-list.onAdded = (element) => {
-    dialog.clear();
-    dialog.showTo(element);
-}
-list.onDeleted = (opt) => {
-    list.removeOpts(opt);
-}
+//list create
+const list = Create()(List);
 
+//dialog crate
 const dialog = Create({
     title: 'Separate multiple resources name with commas',
     placeholder: 'e.g. Chrome, Firefox',
     data: opts
 })(Dialog);
-dialog.onAdded = (data) => {
-    data.forEach(item => {
-        list.addOpts(item.text);
-    })
-    return true;
-}
 
 class Agent extends Component {
     constructor(props) {
         super(props);
+        this.state = {
+            devops: []
+        }
+    }
+
+    componentDidMount() {
+        //tabs events
+        tabs.onSearched = (value) => {}
+        tabs.onTabActived = (name) => {}
+        tabs.onTagActived = (name) => {}
+
+        //list events
+        list.onAdded = (element) => {
+            dialog.reset();
+            dialog.showTo(element);
+        }
+        list.onDeleted = (opt) => {
+            list.removeOpts(opt);
+        }
+
+        //dialog events
+        dialog.onAdded = (data) => {
+            data.forEach(item => {
+                list.addOpts(item.text);
+            })
+            return true;
+        }
+
+        //get devops
+        this.dispatch({
+            type: 'devops/getAll'
+        });
+    }
+
+    updateList() {
+        list.setState({
+            items: this.state.devops
+        });
     }
 
     render() {
+        this.updateList();
         return (
             `<div>
                 <div class="row">
@@ -156,7 +119,9 @@ class Agent extends Component {
     }
 }
 
-export default Connect([], {
+export default Connect([
+    devops
+], {
     cardOne,
     cardTwo,
     cardThree,

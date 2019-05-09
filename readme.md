@@ -4,7 +4,6 @@
 ## 3. Execute the "npm run dev" command to run the development programe.
 ## 4. Execute the "npm run build" command if you want to build a product version. -->
 
-
 # Thoughtworks F2E Homework
 > ## 代码说明
 * 安装环境
@@ -24,10 +23,10 @@
     3. 封装常用函数和组件
     4. 定义通用样式
     5. 还原设计稿，支持响应式设计
-* 2019-03-08
+* 2019-05-08
     1. 使用ES6+语法
-    2. 支持单元测试
-    3. 新增service层
-    4. 创建mock场景数据
-    5. 优化自定义组件，实现响应式菜单
+    2. 重构业务框架
+    3. 构建组件状态机制
+    4. 单元测试覆盖100%
+    5. 创建mock场景数据 
 

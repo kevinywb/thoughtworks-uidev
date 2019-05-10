@@ -3,6 +3,9 @@ import {
     Component
 } from '../../framework/app';
 
+/**
+ * card
+ */
 class Card extends Component {
     constructor(props) {
         super(props);
@@ -19,6 +22,9 @@ class Card extends Component {
         }
     }
 
+    /**
+     * mount component after
+     */
     componentDidMount() {
         if (this.state.animate) {
             let startIndex = 0;
@@ -33,6 +39,9 @@ class Card extends Component {
         }
     }
 
+    /**
+     * render
+     */
     render() {
         let content = `      
                 <div class="${styles.title}">${this.state.title}</div>

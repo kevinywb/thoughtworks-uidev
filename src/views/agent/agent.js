@@ -10,7 +10,9 @@ import List from '../../components/list/list';
 import Dialog from '../../components/dialog/dialog';
 import devops from '../../models/devops';
 
-//card create
+/**
+ * create cards
+ */
 const cardOne = Create({
         title: 'Building',
         value: 3,
@@ -30,10 +32,14 @@ const cardOne = Create({
         values: [8, 4, 4]
     })(Card);
 
-//tab create
+/**
+ * create tabs
+ */
 const tabs = Create()(Tabs);
 
-//default opts
+/**
+ * default opts
+ */
 const opts = [{
     text: 'Firefox'
 }, {
@@ -44,16 +50,23 @@ const opts = [{
     text: 'Chrome'
 }];
 
-//list create
+/**
+ * create list
+ */
 const list = Create()(List);
 
-//dialog crate
+/**
+ * create dialog
+ */
 const dialog = Create({
     title: 'Separate multiple resources name with commas',
     placeholder: 'e.g. Chrome, Firefox',
     data: opts
 })(Dialog);
 
+/**
+ * agent
+ */
 class Agent extends Component {
     constructor(props) {
         super(props);
@@ -62,6 +75,9 @@ class Agent extends Component {
         }
     }
 
+    /**
+     * mount component after
+     */
     componentDidMount() {
         //tabs events
         tabs.onSearched = (value) => {}
@@ -91,12 +107,18 @@ class Agent extends Component {
         });
     }
 
+    /**
+     * update list component
+     */
     updateList() {
         list.setState({
             items: this.state.devops
         });
     }
 
+    /**
+     * render
+     */
     render() {
         this.updateList();
         return (

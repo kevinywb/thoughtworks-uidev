@@ -3,7 +3,14 @@ import {
     Component
 } from '../../framework/app';
 
+/**
+ * record the currently selected item ID
+ */
 let selectedItemId = 0;
+
+/**
+ * list
+ */
 class List extends Component {
     constructor(props) {
         super(props);
@@ -22,6 +29,10 @@ class List extends Component {
         }
     }
 
+    /**
+     * remove opt
+     * @param {*} opt - opt name
+     */
     removeOpts(opt) {
         const items = this.state.items.map(item => {
             if (item.id == selectedItemId) {
@@ -37,6 +48,10 @@ class List extends Component {
         });
     }
 
+    /**
+     * add opt
+     * @param {*} opt - opt name 
+     */
     addOpts(opt) {
         const items = this.state.items.map(item => {
             if (item.id == selectedItemId) {
@@ -54,20 +69,35 @@ class List extends Component {
         });
     }
 
+    /**
+     * add event
+     * @param {*} e - event
+     */
     onAddClick(e) {
         selectedItemId = e.getAttr('val');
         if (this.onAdded) this.onAdded(e.element);
     }
 
+    /**
+     * delete event
+     * @param {*} e - event
+     */
     onDeleteClick(e) {
         selectedItemId = e.getAttr('val');
         if (this.onDeleted) this.onDeleted(e.getAttr('opt'));
     }
 
+    /**
+     * deny event
+     * @param {*} e - event
+     */
     onDenyClick(e) {
 
     }
 
+    /**
+     * render
+     */
     render() {
         const contents = [];
         let opts = [];

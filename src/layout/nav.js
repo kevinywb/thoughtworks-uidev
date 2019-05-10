@@ -5,6 +5,9 @@ import {
 } from '../framework/app';
 import menu from '../models/menu';
 
+/**
+ * nav
+ */
 class Nav extends Component {
     constructor(props) {
         super(props);
@@ -55,12 +58,19 @@ class Nav extends Component {
         }
     }
 
+    /**
+     * mount component after
+     */
     componentDidMount() {
         this.dispatch({
             type: 'menu/getAll'
         });
     }
 
+    /**
+     * click event
+     * @param {*} e - event
+     */
     onClick(e) {
         const name = e.getAttr('name');
         const menus = this.state.menus;
@@ -72,10 +82,16 @@ class Nav extends Component {
         });
     }
 
+    /**
+     * close event
+     */
     onClose() {
         if (this.onClosed) this.onClosed();
     }
 
+    /**
+     * render
+     */
     render() {
         const menus = [],
             histories = [];

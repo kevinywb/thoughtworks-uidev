@@ -1,5 +1,8 @@
 import axios from '../framework/axios';
 
+/**
+ * get menu list
+ */
 const getMenuList = () => {
     return axios.get('menus').then(res => {
         return res.data;

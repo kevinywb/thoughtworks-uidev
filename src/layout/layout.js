@@ -6,6 +6,9 @@ import {
 } from '../framework/app';
 import nav from './nav';
 
+/**
+ * layout
+ */
 class Layout extends Component {
     constructor(props) {
         super(props);
@@ -16,6 +19,9 @@ class Layout extends Component {
         }
     }
 
+    /**
+     * mount component after
+     */
     componentDidMount() {
         nav.onActived = (name) => {
             Router(this.children.router, `./views/${name}/${name}`);
@@ -25,24 +31,36 @@ class Layout extends Component {
         }
     }
 
+    /**
+     * menu click event
+     */
     onMenuClick() {
         this.setState({
             collapsed: !this.state.collapsed
         })
     }
 
+    /**
+     * opts click event
+     */
     onOptsClick() {
         this.setState({
             dropdown: true
         })
     }
 
+    /**
+     * dropdown event
+     */
     onDropdown() {
         this.setState({
             dropdown: false
         })
     }
 
+    /**
+     * render
+     */
     render() {
         return (`
             <div>

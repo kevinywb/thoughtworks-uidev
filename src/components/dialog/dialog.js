@@ -3,6 +3,9 @@ import {
     Component
 } from '../../framework/app';
 
+/**
+ * dialog
+ */
 class Dialog extends Component {
     constructor(props) {
         super(props);
@@ -24,18 +27,28 @@ class Dialog extends Component {
         };
     }
 
+    /**
+     * reset
+     */
     reset() {
         this.state.data.forEach(item => {
             item.selected = false;
         });
     }
 
+    /**
+     * show
+     */
     show() {
         this.setState({
             show: true
         });
     }
 
+    /**
+     * show on the element
+     * @param {*} element - html element
+     */
     showTo(element) {
         this.setState({
             to: element,
@@ -43,12 +56,19 @@ class Dialog extends Component {
         });
     }
 
+    /**
+     * hide
+     */
     hide() {
         this.setState({
             show: false
         });
     }
 
+    /**
+     * add event
+     * @param {*} e - event
+     */
     onAdd(e) {
         const data = this.state.data.filter(item => {
             return item.selected === true;
@@ -58,14 +78,24 @@ class Dialog extends Component {
         }
     }
 
+    /**
+     * cancel event
+     */
     onCancel() {
         this.hide();
     }
 
+    /**
+     * close event
+     */
     onClose() {
         this.hide();
     }
 
+    /**
+     * input change event
+     * @param {*} e - event
+     */
     onChange(e) {
         const val = e.value || e.getAttr('val'),
             data = this.state.data;
@@ -80,12 +110,19 @@ class Dialog extends Component {
         });
     }
 
+    /**
+     * input focus event
+     * @param {*} e - event
+     */
     onFocus(e) {
         this.setState({
             autoselect: true
         })
     }
 
+    /**
+     * render
+     */
     render() {
         const inputs = [],
             datalist = [];

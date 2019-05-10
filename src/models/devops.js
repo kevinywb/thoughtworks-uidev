@@ -2,6 +2,9 @@ import {
     getDevOpsList
 } from '../services/devops';
 
+/**
+ * devops model
+ */
 export default {
     namespace: 'devops',
     state: {

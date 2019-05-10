@@ -3,6 +3,9 @@ import {
     Component
 } from '../../framework/app';
 
+/**
+ * tabs
+ */
 class Tabs extends Component {
     constructor(props) {
         super(props);
@@ -41,10 +44,18 @@ class Tabs extends Component {
         }
     }
 
+    /**
+     * search event
+     * @param {*} e - event
+     */
     onSearch(e) {
         if (this.onSearched) this.onSearched(e.value);
     }
 
+    /**
+     * tab change event
+     * @param {*} e - event
+     */
     onTabChange(e) {
         const name = e.getAttr('name');
         const items = this.state.items;
@@ -59,6 +70,10 @@ class Tabs extends Component {
         if (this.onTabActived) this.onTabActived(name);
     }
 
+    /**
+     * tag change event
+     * @param {*} e - event
+     */
     onTagChange(e) {
         const name = e.getAttr('name');
         const items = this.state.items;
@@ -73,6 +88,9 @@ class Tabs extends Component {
         if (this.onTagActived) this.onTagActived(name);
     }
 
+    /**
+     * render
+     */
     render() {
         const contents = [];
         let searchContent = '';

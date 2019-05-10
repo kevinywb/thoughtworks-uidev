@@ -2,6 +2,9 @@ import {
     getMenuList
 } from '../services/menu';
 
+/**
+ * menu model
+ */
 export default {
     namespace: 'menu',
     state: {

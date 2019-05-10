@@ -1,4 +1,4 @@
-import nav from './nav';
+import nav from '../../src/layout/nav';
 
 describe('nav', () => {
     it('trigger click event', () => {

@@ -1,4 +1,4 @@
-import core from './core';
+import core from '../../src/framework/core';
 
 describe('core', () => {
 

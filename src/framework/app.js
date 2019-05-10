@@ -2,6 +2,9 @@ import _ from './core';
 import _path from 'path';
 import Component from './component';
 
+/**
+ * common configuration
+ */
 let _config = {
         historyTracker: false,
         providerPath: './layout/layout'
@@ -9,6 +12,10 @@ let _config = {
     _middlewares = [],
     _provider = null;
 
+/**
+ * dynamic load modules
+ * @param {*} path - file path
+ */
 const _dynamic = (path) => {
     const arr = path.split('/'),
         name = arr[arr.length - 1];
@@ -20,6 +27,12 @@ const _dynamic = (path) => {
     });
 }
 
+/**
+ * create a store to manage the state of components
+ * @param {*} reducer - used to reconstruct a new state
+ * @param {*} preloadedStore - unprocessed and original state
+ * @param {*} enhancer - extend more advanced intermediate state logic
+ */
 const _createStore = (reducer, preloadedStore, enhancer) => {
     if (_.isFunc(enhancer)) {
         return enhancer(_createStore)(reducer, preloadedStore);
@@ -54,6 +67,9 @@ const _createStore = (reducer, preloadedStore, enhancer) => {
     }
 };
 
+/**
+ * construct a middleware that handles asynchronous functions
+ */
 const _createPromiseMiddleware = () => {
     const call = (promise, next, action) => {
         promise.then(data => {
@@ -63,7 +79,7 @@ const _createPromiseMiddleware = () => {
     }
     return (store) => next => action => {
         const effects = store.getEffects();
-        const key = Object.keys(effects).filter(key => key === action.type)[0];
+        const key = Object.keys(effects).find(key => key === action.type);
         if (key) {
             // return _.isPromise(effects[key]) ?
             //     call(effects[key](action.payload), next, action) :
@@ -75,6 +91,10 @@ const _createPromiseMiddleware = () => {
     }
 }
 
+/**
+ * register middlewares
+ * @param  {...any} middlewares - follow the 'store => next => action' function rules
+ */
 const _applyMiddleware = (...middlewares) => {
     return (createStore) => (reducer, preloadedStore, enhancer) => {
         const store = createStore(reducer, preloadedStore, enhancer);
@@ -94,6 +114,10 @@ const _applyMiddleware = (...middlewares) => {
     }
 }
 
+/**
+ * merge the reducers
+ * @param {*} reducers - a reducer set
+ */
 const _combineReducers = (reducers) => {
     return (state, action) => {
         Object.keys(reducers).forEach(key => {
@@ -110,6 +134,12 @@ const _combineReducers = (reducers) => {
     }
 }
 
+/**
+ * create a container component that connect components and states
+ * @param {*} model - management of state
+ * @param {*} children - management of element
+ * @param {*} state - orginal state
+ */
 const _connect = (model, children, state) => (thisComponent) => {
     const component = new thisComponent(state);
     if (model && model.length > 0) {
@@ -145,6 +175,10 @@ const _connect = (model, children, state) => (thisComponent) => {
     return component;
 }
 
+/**
+ * normal component wrapper
+ * @param {*} state - orginal state
+ */
 const _create = (state) => (thisComponent) => {
     const component = new thisComponent(state);
     component.state = {
@@ -157,6 +191,11 @@ const _create = (state) => (thisComponent) => {
     return component;
 }
 
+/**
+ * dynamic routing
+ * @param {*} component - container component
+ * @param {*} url - target component path
+ */
 const _router = (component, url) => {
     return _dynamic(`${url}`).then(m => {
         m.mountElement(component.element, true);
@@ -167,6 +206,10 @@ const _router = (component, url) => {
     });
 }
 
+/**
+ * monitor global window event
+ * @param {*} w - global window 
+ */
 const _register = (w) => {
 
     w.onhashchange = () => {}
@@ -182,16 +225,26 @@ const _register = (w) => {
     w.onerror = function (msg, url, line) {}
 }
 
+/**
+ * app class
+ */
 class App {
     constructor() {
         _register(window);
     }
 
+    /**
+     * singleton
+     */
     static getApp() {
         return this.instance ? this.instance :
             this.instance = new this();
     }
 
+    /**
+     * set configuration
+     * @param {*} config - initial configuration
+     */
     config(config) {
         _config = {
             ..._config,
@@ -200,6 +253,10 @@ class App {
         return _config;
     }
 
+    /**
+     * set middlewares
+     * @param {*} middlewares - middleware arrays follow the 'store => next => action' function rules
+     */
     middlewares(middlewares) {
         _middlewares.push(_createPromiseMiddleware());
         middlewares.forEach(m => {
@@ -208,6 +265,10 @@ class App {
         return _middlewares;
     }
 
+    /**
+     * mount the app instance on the document
+     * @param {*} container - root element
+     */
     start(container) {
         return _dynamic(_config.providerPath).then(m => {
             const rootContainer = document.querySelector(container);

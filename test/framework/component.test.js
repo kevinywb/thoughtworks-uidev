@@ -1,4 +1,4 @@
-import Component from './component';
+import Component from '../../src/framework/component';
 
 describe('component', () => {
     it('get a component correctly', () => {
@@ -32,7 +32,7 @@ describe('component', () => {
         component.mountElement(container);
         component2.mountElement(container, true);
         expect(container.childElementCount).toEqual(1);
-    })
+    });
 
     it('destroy correctly', () => {
         const component = new Component(),
@@ -45,13 +45,62 @@ describe('component', () => {
         component.element.removeNode = () => {};
         component.destroy();
         expect(container.childElementCount).toEqual(0);
-    })
+    });
 
-    it('set component state correctly', () => {
+    it('set state correctly', () => {
         const component = new Component();
         component.setState({
             a: 1
         });
         expect(component.state.a).toEqual(1);
-    })
+    });
+
+    it('event listener correctly', () => {
+        class Button extends Component {
+            constructor(props) {
+                super(props);
+                this.state = {
+                    clicked: false
+                }
+            }
+            onClick(e) {
+                this.setState({
+                    clicked: true
+                });
+            }
+            render() {
+                return `<button onclick="onClick"></button>`
+            }
+        }
+        const btn = new Button();
+        btn.renderDOM();
+        expect(btn.element).toBeDefined();
+        expect(btn.state.clicked).toBe(false);
+        btn.element.click();
+        expect(btn.state.clicked).toBe(true);
+    });
+
+    it('input autofocus correctly', () => {
+        class Input extends Component {
+            constructor(props) {
+                super(props);
+                this.state = {
+                    val: 'a'
+                }
+            }
+            render() {
+                return `<div><input value="${this.state.val}" autofocus /></div>`
+            }
+        }
+        const input = new Input();
+        const body = document.querySelector('body');
+        input.renderDOM();
+        input.mountElement(body);
+        expect(input.find('[autofocus]')).toBeDefined();
+        input.setState({
+            val: 'b'
+        });
+        expect(input.find('[autofocus]')).toBeDefined();
+        expect(input.find('[autofocus]').value).toBe('b');
+    });
 });

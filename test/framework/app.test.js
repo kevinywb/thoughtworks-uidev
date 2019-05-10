@@ -4,7 +4,7 @@ import {
     Connect,
     Create,
     Router
-} from './app';
+} from '../../src/framework/app';
 
 describe('app', () => {
 
@@ -65,11 +65,10 @@ describe('app', () => {
         const model = {
             namespace: 'test',
             state: {
-                btnName: 'hello',
                 text: 'No'
             },
             reducers: {
-                getAsnycText(state, {
+                getText(state, {
                     payload
                 }) {
                     return {
@@ -78,27 +77,14 @@ describe('app', () => {
                             text: payload
                         },
                     };
-                },
-                getBtnName(state, {
-                    payload
-                }) {
-                    return {
-                        ...state,
-                        ...{
-                            test: payload
-                        },
-                    };
                 }
             },
             effects: {
-                getAsnycText: async () => {
+                getText: async () => {
                     const res = await new Promise((resolve) => {
                         return resolve('Yes')
                     });
                     return res;
-                },
-                getBtnName: () => {
-                    return 'Test';
                 }
             }
         }
@@ -106,63 +92,35 @@ describe('app', () => {
             constructor(props) {
                 super(props);
                 this.state = {
-                    btnName: 'Hello'
+                    text: ''
                 };
             }
             componentWillMount() {}
             componentDidMount() {
                 this.dispatch({
-                    type: 'test/getBtnName',
-                    payload: {
-                        callback: (res) => {
-                            expect(res === 'Test').toBe(true);
-                        }
-                    }
-                });
-                this.dispatch({
                     type: 'test/getText'
-                })
-                this.element.click();
-            }
-            onClick(e) {
-                e.getAttr('name');
+                });
+                //no exist type test
+                this.dispatch({
+                    type: 'none'
+                });
             }
             render() {
                 return (`
-                    <div name="test" onclick="onClick">
-                        <input autofocus />
-                        <a>${this.state.btnName}</a>
-                        <div children="a"></div>
+                    <div>
+                        ${this.state.text}:
+                        <div children="sub"></div>
                     </div>`)
             }
         }
-        class Children extends Component {
-            componentDidMount() {
-                this.dispatch({
-                    type: 'test2/get'
-                });
-            }
-        }
-        const children = Connect([{
-            namespace: 'test2',
-            state: {},
-            reducers: {
-                get(state, {
-                    payload
-                }) {
-                    return {
-                        ...state,
-                        ...payload
-                    };
-                }
-            },
-            effects: {}
-        }], {})(Children);
-        expect(children).toBeDefined();
+        class Children extends Component {};
+        const children = new Children();
+        children.renderDOM();
+        expect(children.element).toBeDefined();
         const component = Connect([
             model
         ], {
-            a: children
+            sub: children
         })(Parent);
         expect(component).toBeDefined();
     });

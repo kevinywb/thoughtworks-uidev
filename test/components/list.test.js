@@ -1,4 +1,4 @@
-import List from './list';
+import List from '../../src/components/list/list';
 
 describe('List', () => {
     it('renders correctly', () => {

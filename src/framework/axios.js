@@ -1,8 +1,13 @@
 /**
- * axios
+ * url prefix that interacts with the services
  */
 const baseUrl = '/api';
 
+/**
+ * base request
+ * @param {*} url - service url
+ * @param {*} req - client request
+ */
 const axios = async (url, req) => {
     // const res = await fetch(`${baseUrl}/${url}`, req);
     // if (res.ok) {
@@ -21,6 +26,11 @@ const axios = async (url, req) => {
     })
 }
 
+/**
+ * get
+ * @param {*} url - service url
+ * @param {*} data - pass data
+ */
 const get = (url, data) => {
     const req = {
         method: 'GET'
@@ -29,14 +39,29 @@ const get = (url, data) => {
     return axios(url, req);
 }
 
+/**
+ * post
+ * @param {*} url - service url 
+ * @param {*} data - pass data 
+ */
 const post = (url, data) => {
 
 }
 
+/**
+ * put
+ * @param {*} url - service url 
+ * @param {*} data - pass data 
+ */
 const put = (url, data) => {
 
 }
 
+/**
+ * delete
+ * @param {*} url - service url 
+ * @param {*} data - pass data 
+ */
 const del = (url, data) => {
 
 }

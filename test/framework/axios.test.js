@@ -1,4 +1,4 @@
-import axios from './axios';
+import axios from '../../src/framework/axios';
 
 describe('axios', () => {
     it('axios correctly', async (done) => {

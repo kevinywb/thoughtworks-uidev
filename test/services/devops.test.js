@@ -1,6 +1,6 @@
 import {
     getDevOpsList
-} from './devops';
+} from '../../src/services/devops';
 
 describe('service', () => {
     it('get devops list correctly', async (done) => {

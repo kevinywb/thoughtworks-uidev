@@ -1,8 +1,8 @@
-import menu from './menu';
+import devops from '../../src/models/devops';
 
-describe('menu', () => {
+describe('devops', () => {
     it('reducers correctly', () => {
-        Object.values(menu.reducers).forEach(reducer => {
+        Object.values(devops.reducers).forEach(reducer => {
             reducer({}, {
                 payload: {
                     a: 1
@@ -12,7 +12,7 @@ describe('menu', () => {
     });
 
     it('effects correctly', () => {
-        Object.values(menu.effects).forEach(effect => {
+        Object.values(devops.effects).forEach(effect => {
             effect({});
         })
     })

@@ -1,4 +1,4 @@
-import layout from './layout';
+import layout from '../../src/layout/layout';
 
 describe('layout', () => {
     it('trigger menu click event', () => {

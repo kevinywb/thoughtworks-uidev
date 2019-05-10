@@ -1,4 +1,4 @@
-import Card from './card';
+import Card from '../../src/components/card/card';
 
 describe('card', () => {
     jest.useFakeTimers();

@@ -1,4 +1,4 @@
-import Agent from './agent';
+import Agent from '../../src/views/agent/agent';
 
 describe('Agent', () => {
     it('renders correctly', () => {

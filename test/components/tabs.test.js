@@ -1,4 +1,4 @@
-import Tabs from './tabs';
+import Tabs from '../../src/components/tabs/tabs';
 
 describe('Tabs', () => {
     it('renders correctly', () => {

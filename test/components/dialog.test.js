@@ -1,4 +1,4 @@
-import Dialog from './dialog';
+import Dialog from '../../src/components/dialog/dialog';
 
 describe('Dialog', () => {
     it('renders correctly', () => {

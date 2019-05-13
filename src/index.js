@@ -3,7 +3,7 @@ import './index.less';
 import {
     App
 } from './framework/app';
-import logger from './middware/logger';
+import logger from './middlewares/logger';
 
 /**
  * create app

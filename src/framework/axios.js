@@ -9,11 +9,17 @@ const baseUrl = '/api';
  * @param {*} req - client request
  */
 const axios = async (url, req) => {
+    /**
+     * the fetch object is undefined in jest
+     */
     // const res = await fetch(`${baseUrl}/${url}`, req);
     // if (res.ok) {
     //     return res.json();
     // }
-    //handle errors
+
+    /**
+     * use the xml http request instead
+     */
     return new Promise((resolve, reject) => {
         var xhr = new XMLHttpRequest();
         xhr.open(req.method, `${baseUrl}/${url}`, true);
@@ -23,7 +29,11 @@ const axios = async (url, req) => {
             }
         };
         xhr.send(req.data);
-    })
+    });
+
+    /**
+     * handle errors
+     */
 }
 
 /**
